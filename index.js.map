@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"index.js","sources":["../src/js/pixabay-api.js","../src/js/render-functions.js"],"sourcesContent":["console.log('pagina 1')","console.log('pagina 2')"],"names":[],"mappings":"ssBAAA,QAAQ,IAAI,UAAU,ECAtB,QAAQ,IAAI,UAAU"}
