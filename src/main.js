@@ -61,8 +61,16 @@ loadMoreBtn.addEventListener('click', async () => {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
 
-    const cardHeight = document.querySelector('.gallery-item').getBoundingClientRect().height;
-    window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
+    setTimeout(() => {
+  const card = document.querySelector('.gallery-item');
+  if (card) {
+    const { height: cardHeight } = card.getBoundingClientRect();
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+  }
+}, 100); 
 
     if (page * 15 >= totalHits) {
       iziToast.info({ message: "We're sorry, but you've reached the end of search results.", position: 'topRight' });
