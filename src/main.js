@@ -60,18 +60,25 @@ loadMoreBtn.addEventListener('click', async () => {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
 
-    
-    const firstCard = document.querySelector('.gallery-item'); // або .photo-card, якщо саме так називається клас
-    if (firstCard) {
-      const cardHeight = firstCard.getBoundingClientRect().height;
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
-      });
-    }
+    // Ждём, пока элементы будут отрисованы
+    setTimeout(() => {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const firstNewCard = galleryItems[(page - 1) * 15]; // индекс первого элемента новой группы
+
+      if (firstNewCard) {
+        const cardHeight = firstNewCard.getBoundingClientRect().height;
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
+      }
+    }, 200); // Небольшая задержка для корректной отрисовки
 
     if (page * 15 >= totalHits) {
-      iziToast.info({ message: "We're sorry, but you've reached the end of search results.", position: 'topRight' });
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
     } else {
       showLoadMoreButton();
     }
@@ -81,5 +88,3 @@ loadMoreBtn.addEventListener('click', async () => {
     hideLoader();
   }
 });
-
-
