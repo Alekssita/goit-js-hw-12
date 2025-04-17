@@ -62,7 +62,15 @@ loadMoreBtn.addEventListener('click', async () => {
     createGallery(data.hits);
 
     setTimeout(() => {
-  const card = document.querySelector('.gallery-item');
+const cards = document.querySelectorAll('.gallery-item');
+const lastCard = cards[cards.length - 15]; // беремо першу з новододаних
+if (lastCard) {
+  const { height: cardHeight } = lastCard.getBoundingClientRect();
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
   if (card) {
     const { height: cardHeight } = card.getBoundingClientRect();
     window.scrollBy({
