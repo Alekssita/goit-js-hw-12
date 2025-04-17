@@ -89,9 +89,11 @@ loadMoreBtn.addEventListener('click', async () => {
 });
 function smoothScrollAfterNewImages() {
   setTimeout(() => {
-    const card = document.querySelector('.gallery-item');
-    if (card) {
-      const { height: cardHeight } = card.getBoundingClientRect();
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lastItem = galleryItems[galleryItems.length - 1];
+
+    if (lastItem) {
+      const { height: cardHeight } = lastItem.getBoundingClientRect();
       window.scrollBy({
         top: cardHeight * 2,
         behavior: 'smooth',
