@@ -61,13 +61,19 @@ loadMoreBtn.addEventListener('click', async () => {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
 
-    // Прокрутка к последнему элементу
+    // Ждём, пока элементы будут отрисованы
     setTimeout(() => {
-      const lastCard = document.querySelector('.gallery li:last-child');
-      if (lastCard) {
-        lastCard.scrollIntoView({ behavior: 'smooth' });
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const firstNewCard = galleryItems[(page - 1) * 15]; // индекс первого элемента новой группы
+
+      if (firstNewCard) {
+        const cardHeight = firstNewCard.getBoundingClientRect().height;
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
       }
-    }, 300);
+    }, 200); // Небольшая задержка для корректной отрисовки
 
     if (page * 15 >= totalHits) {
       iziToast.info({
