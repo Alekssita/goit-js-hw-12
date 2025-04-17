@@ -61,16 +61,19 @@ loadMoreBtn.addEventListener('click', async () => {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
 
-    
-   setTimeout(() => {
-  const lastImage = document.querySelector('.gallery li:last-child');
-  if (lastImage) {
-    lastImage.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}, 100);
+    // Прокрутка к последнему элементу
+    setTimeout(() => {
+      const lastCard = document.querySelector('.gallery li:last-child');
+      if (lastCard) {
+        lastCard.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 300);
 
     if (page * 15 >= totalHits) {
-      iziToast.info({ message: "We're sorry, but you've reached the end of search results.", position: 'topRight' });
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
     } else {
       showLoadMoreButton();
     }
