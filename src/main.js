@@ -61,11 +61,13 @@ loadMoreBtn.addEventListener('click', async () => {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
 
-    // Прокрутити до першого нового елемента
+    // Найдите последнюю добавленную карточку
     const galleryItems = document.querySelectorAll('.gallery-item');
-    const firstNewItem = galleryItems[galleryItems.length - data.hits.length];
-    if (firstNewItem) {
-      firstNewItem.scrollIntoView({ behavior: 'smooth' });
+    const lastCard = galleryItems[galleryItems.length - 1];
+
+    // Прокрутите к последней карточке
+    if (lastCard) {
+      lastCard.scrollIntoView({ behavior: 'smooth' });
     }
 
     if (page * 15 >= totalHits) {
