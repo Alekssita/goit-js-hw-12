@@ -42,6 +42,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     createGallery(data.hits);
+    smoothScrollAfterNewImages();
     if (totalHits > page * 15) showLoadMoreButton();
   } catch (err) {
     iziToast.error({ message: 'Error fetching images.', position: 'topRight' });
@@ -61,16 +62,16 @@ loadMoreBtn.addEventListener('click', async () => {
     createGallery(data.hits);
 
     // Плавний скрол після рендеру нових зображень
-    requestAnimationFrame(() => {
-      const card = document.querySelector('.gallery-item');
-      if (card) {
-        const { height: cardHeight } = card.getBoundingClientRect();
-        window.scrollBy({
-          top: cardHeight * 2,
-          behavior: 'smooth',
-        });
-      }
+        setTimeout(() => {
+  const card = document.querySelector('.gallery-item');
+  if (card) {
+    const { height: cardHeight } = card.getBoundingClientRect();
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
     });
+  }
+}, 100);
 
     if (page * 15 >= totalHits) {
       iziToast.info({
@@ -86,3 +87,15 @@ loadMoreBtn.addEventListener('click', async () => {
     hideLoader();
   }
 });
+function smoothScrollAfterNewImages() {
+  setTimeout(() => {
+    const card = document.querySelector('.gallery-item');
+    if (card) {
+      const { height: cardHeight } = card.getBoundingClientRect();
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
+    }
+  }, 100);
+}
