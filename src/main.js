@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +17,10 @@
 
     <ul class="gallery"></ul>
 
-    <button class="load-more">Load more</button>
-    <span class="loader loader-pulse"></span>
+    <div class="load-more-wrapper">
+      <button class="load-more">Load more</button>
+      <span class="loader loader-pulse"></span>
+    </div>
   </div>
 
   <script type="module" src="./main.js"></script>
