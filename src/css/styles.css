@@ -129,3 +129,8 @@ body {
   justify-content: center;
   margin-top: 20px;
 }
+.loader-pulse {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
