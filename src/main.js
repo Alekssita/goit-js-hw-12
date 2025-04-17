@@ -61,14 +61,13 @@ loadMoreBtn.addEventListener('click', async () => {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
 
-    // Найдите последнюю добавленную карточку
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const lastCard = galleryItems[galleryItems.length - 1];
-
-    // Прокрутите к последней карточке
-    if (lastCard) {
-      lastCard.scrollIntoView({ behavior: 'smooth' });
-    }
+    
+   setTimeout(() => {
+  const lastImage = document.querySelector('.gallery li:last-child');
+  if (lastImage) {
+    lastImage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}, 100);
 
     if (page * 15 >= totalHits) {
       iziToast.info({ message: "We're sorry, but you've reached the end of search results.", position: 'topRight' });
