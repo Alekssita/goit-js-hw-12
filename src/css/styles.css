@@ -124,3 +124,8 @@ body {
     transform: rotate(360deg);
   }
 }
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
