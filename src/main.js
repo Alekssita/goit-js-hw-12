@@ -61,7 +61,7 @@ loadMoreBtn.addEventListener('click', async () => {
   try {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
-    smoothScrollAfterNewImages(); 
+    smoothScrollAfterNewImages(); // Додаємо виклик функції прокручування
 
     if (page * 15 >= totalHits) {
       iziToast.info({
@@ -80,8 +80,7 @@ loadMoreBtn.addEventListener('click', async () => {
 
 function smoothScrollAfterNewImages() {
   const galleryItems = document.querySelectorAll('.gallery-item');
-  const newItems = Array.from(galleryItems).slice(-15); 
-
+  const newItems = Array.from(galleryItems).slice(-15); // останні додані
   const images = newItems.flatMap(item => Array.from(item.querySelectorAll('img')));
   const imagePromises = images.map(img => {
     if (img.complete) return Promise.resolve();
@@ -91,7 +90,7 @@ function smoothScrollAfterNewImages() {
   });
 
   Promise.all(imagePromises).then(() => {
-    const scrollTarget = newItems[0]; 
+    const scrollTarget = newItems[0];
     if (scrollTarget) {
       const { height: cardHeight } = scrollTarget.getBoundingClientRect();
       window.scrollBy({
