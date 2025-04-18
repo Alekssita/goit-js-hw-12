@@ -5,7 +5,7 @@ import {
   showLoader,
   hideLoader,
   showLoadMoreButton,
-  hideLoadMoreButton
+  hideLoadMoreButton,
 } from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -18,7 +18,7 @@ let query = '';
 let page = 1;
 let totalHits = 0;
 
-form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
   query = input.value.trim();
   page = 1;
@@ -42,7 +42,8 @@ form.addEventListener('submit', async (e) => {
     }
 
     createGallery(data.hits);
-    smoothScrollAfterNewImages();
+    smoothScrollAfterNewImages(); 
+
     if (totalHits > page * 15) showLoadMoreButton();
   } catch (err) {
     iziToast.error({ message: 'Error fetching images.', position: 'topRight' });
@@ -60,8 +61,7 @@ loadMoreBtn.addEventListener('click', async () => {
   try {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
-
-    smoothScrollAfterNewImages();
+    smoothScrollAfterNewImages(); 
 
     if (page * 15 >= totalHits) {
       iziToast.info({
@@ -77,26 +77,16 @@ loadMoreBtn.addEventListener('click', async () => {
     hideLoader();
   }
 });
+
 function smoothScrollAfterNewImages() {
-  const observer = new MutationObserver((mutations, obs) => {
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const lastItem = galleryItems[galleryItems.length - 1];
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const scrollTarget = galleryItems[galleryItems.length - 15]; 
 
-    if (lastItem) {
-      const { height: cardHeight } = lastItem.getBoundingClientRect();
-
-      requestAnimationFrame(() => {
-        window.scrollBy({
-          top: cardHeight * 2,
-          behavior: 'smooth',
-        });
-      });
-
-      obs.disconnect(); 
-    }
-  });
-
-  observer.observe(document.querySelector('.gallery'), {
-    childList: true,
-  });
+  if (scrollTarget) {
+    const { height: cardHeight } = scrollTarget.getBoundingClientRect();
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+  }
 }
