@@ -78,16 +78,25 @@ loadMoreBtn.addEventListener('click', async () => {
   }
 });
 function smoothScrollAfterNewImages() {
-  setTimeout(() => {
+  const observer = new MutationObserver((mutations, obs) => {
     const galleryItems = document.querySelectorAll('.gallery-item');
     const lastItem = galleryItems[galleryItems.length - 1];
 
     if (lastItem) {
       const { height: cardHeight } = lastItem.getBoundingClientRect();
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
+
+      requestAnimationFrame(() => {
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
       });
+
+      obs.disconnect(); 
     }
-  }, 200); 
+  });
+
+  observer.observe(document.querySelector('.gallery'), {
+    childList: true,
+  });
 }
