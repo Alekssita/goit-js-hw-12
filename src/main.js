@@ -14,6 +14,9 @@ const form = document.querySelector('.form');
 const input = form.elements['search-text'];
 const loadMoreBtn = document.querySelector('.load-more');
 
+hideLoadMoreButton();
+hideLoader();
+
 let query = '';
 let page = 1;
 let totalHits = 0;
@@ -42,7 +45,7 @@ form.addEventListener('submit', async e => {
     }
 
     createGallery(data.hits);
-    smoothScrollAfterNewImages(); 
+    smoothScrollAfterNewImages();
 
     if (totalHits > page * 15) showLoadMoreButton();
   } catch (err) {
@@ -61,7 +64,7 @@ loadMoreBtn.addEventListener('click', async () => {
   try {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
-    smoothScrollAfterNewImages(); // Додаємо виклик функції прокручування
+    smoothScrollAfterNewImages();
 
     if (page * 15 >= totalHits) {
       iziToast.info({
@@ -80,7 +83,7 @@ loadMoreBtn.addEventListener('click', async () => {
 
 function smoothScrollAfterNewImages() {
   const galleryItems = document.querySelectorAll('.gallery-item');
-  const newItems = Array.from(galleryItems).slice(-15); // останні додані
+  const newItems = Array.from(galleryItems).slice(-15);
   const images = newItems.flatMap(item => Array.from(item.querySelectorAll('img')));
   const imagePromises = images.map(img => {
     if (img.complete) return Promise.resolve();

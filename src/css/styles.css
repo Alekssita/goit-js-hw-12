@@ -147,3 +147,6 @@ html, body {
   gap: 10px;
   margin-top: 20px;
 }
+.is-hidden {
+  display: none !important;
+}
