@@ -26,10 +26,11 @@ form.addEventListener('submit', async e => {
   query = input.value.trim();
   page = 1;
 
-  if (!query) {
-    iziToast.warning({ message: 'Please enter a search term', position: 'topRight' });
-    return;
-  }
+if (!query) {
+  iziToast.warning({ message: 'Please enter a search term', position: 'topRight' });
+  hideLoader(); 
+  return;
+}
 
   clearGallery();
   hideLoadMoreButton();
