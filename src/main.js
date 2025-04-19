@@ -75,6 +75,8 @@ loadMoreBtn.addEventListener('click', async () => {
     } else {
       showLoadMoreButton();
     }
+
+
   } catch (err) {
     iziToast.error({ message: 'Error loading more images.', position: 'topRight' });
   } finally {
@@ -102,5 +104,15 @@ function smoothScrollAfterNewImages() {
         behavior: 'smooth',
       });
     }
+  });
+}
+function smoothScrollAfterNewImages() {
+  // Функція для скролу
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
   });
 }
