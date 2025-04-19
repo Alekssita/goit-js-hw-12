@@ -83,29 +83,6 @@ loadMoreBtn.addEventListener('click', async () => {
     hideLoader();
   }
 });
-
-function smoothScrollAfterNewImages() {
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  const newItems = Array.from(galleryItems).slice(-15);
-  const images = newItems.flatMap(item => Array.from(item.querySelectorAll('img')));
-  const imagePromises = images.map(img => {
-    if (img.complete) return Promise.resolve();
-    return new Promise(resolve => {
-      img.onload = img.onerror = resolve;
-    });
-  });
-
-  Promise.all(imagePromises).then(() => {
-    const scrollTarget = newItems[0];
-    if (scrollTarget) {
-      const { height: cardHeight } = scrollTarget.getBoundingClientRect();
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
-      });
-    }
-  });
-}
 function smoothScrollAfterNewImages() {
   // Функція для скролу
   const { height: cardHeight } = document
